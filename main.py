@@ -7,7 +7,9 @@ mixer.set_num_channels(500)
 sounds = {
     "startup": mixer.Sound("sound/st.wav"),
     "tik": mixer.Sound("sound/up.wav"),
-    "tok": mixer.Sound("sound/dn.wav")
+    "tok": mixer.Sound("sound/dn.wav"),
+    "error": mixer.Sound("sound/er.wav"),
+    "exit": mixer.Sound("sound/xt.wav")
 }
 
 # Prepare channel objects (user-facing channels 1..5 -> pygame channels 0..4)
@@ -172,8 +174,10 @@ if __name__ == "__main__":
             raw = input("insert your BPM/Tempo (only numbers allowed): ")
             a = int(raw)
             if a < 0:
+                sounds["error"].play()
                 raise ValueError("BPM/Tempo cannot be negative")
             if a == 0:
+                sounds["error"].play()
                 print("BPM/Tempo cannot be zero, please try again.")
                 continue
 
@@ -189,10 +193,13 @@ if __name__ == "__main__":
         except ValueError as e:
             msg = str(e)
             if "negative" in msg:
+                sounds["error"].play()
                 print(msg)
             else:
+                sounds["error"].play()
                 print("Invalid input, please enter a number.")
             continue
         except KeyboardInterrupt:
+            sounds["exit"].play()
             print("\nExiting.")
             break
