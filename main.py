@@ -181,9 +181,10 @@ if __name__ == "__main__":
                 print("BPM/Tempo cannot be zero, please try again.")
                 continue
 
-            p = "are" if a != 1 else "is"
+            p = "are" if a > 1 else "is"
             b = a / 60
             # Represent seconds-per-beat as a rational 60/a to detect repeating decimals
+            
             seconds_repr = check_for_continuous_bps(60, a)
             rprint(f"Your BPM/Tempo is: [blue]{a}[/blue], meaning for every second, there are [green]{b}[/green] beats, and in between every beat, there {p} [violet]{seconds_repr}[/violet] seconds.")
             print("here is a visual example of the BPM/Tempo:")
